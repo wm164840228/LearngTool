@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!--<external-path name="external_files" path="."/>-->
+    <external-files-path
+        name="external_files_path"
+        path="Download" />
+    <root-path
+        name="name"
+        path="" />
+    <external-path name="sg_download" path="SGDOWNLOAD" />
+    <!--闲玩中用到的-->
+    <external-path name="51xianwan" path="51xianwan" />
+    <files-path  name="downloads" path="downloads"/>
+</paths>

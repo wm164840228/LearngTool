@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eeeeee"
+    tools:context=".ui.AboutActivity"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorWhite"
+        android:id="@+id/rl_title_bar">
+        <ImageView
+            android:id="@+id/iv_left_title_bar"
+            android:layout_width="40dp"
+            android:layout_height="21dp"
+            android:src="@mipmap/black_back"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="20dp"
+            />
+        <TextView
+            android:id="@+id/tv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="#191919"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_toRightOf="@id/iv_left_title_bar"
+            android:text="关于"
+            android:layout_marginLeft="20dp"
+            />
+    </RelativeLayout>
+
+
+    <ImageView
+        android:id="@+id/about_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/icon_my_contact"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="100dp"/>
+    <TextView
+        android:id="@+id/about_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="当前版本 v1.0"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="杭州嘉游网络科技有限公司所有"
+        android:visibility="gone"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="250dp"
+        android:textSize="12sp"/>
+</LinearLayout>

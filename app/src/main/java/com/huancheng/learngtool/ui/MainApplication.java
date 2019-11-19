@@ -11,6 +11,11 @@ import android.util.Log;
 
 import com.huancheng.greendao.DaoMaster;
 import com.huancheng.greendao.DaoSession;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.commonsdk.UMConfigure;
+import com.umeng.message.IUmengRegisterCallback;
+import com.umeng.message.PushAgent;
+import com.umeng.socialize.PlatformConfig;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -28,10 +33,10 @@ public class MainApplication extends Application {
         context = getApplicationContext();
         //greendao
         initGreenDao();
-        //PlatformConfig.setWeixin("wxf76085f37711502a","b3bd49f2299f584eb1c9a36180f752af");
-        //PlatformConfig.setQQZone("101697760","b9e227800b97476c193e13368ce81a6b");
+        PlatformConfig.setWeixin("wxf76085f37711502a","b3bd49f2299f584eb1c9a36180f752af");
+        PlatformConfig.setQQZone("101828804","dc57b43cdb94741728fcacb2c80bedda");
         sInstance = this;
-       /* //初始化友盟
+        //初始化友盟
         UMConfigure.init(this,UMConfigure.DEVICE_TYPE_PHONE,"cd5224a5a7c1158d8d344eef91d9fd03");//58edcfeb310c93091c000be2 5965ee00734be40b580001a0
         UMConfigure.setLogEnabled(true);
         MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
@@ -54,7 +59,7 @@ public class MainApplication extends Application {
         String registrationId = mPushAgent.getRegistrationId();
         String registrationId1 = mPushAgent.getRegistrationId();
         //OPPO通道，参数1为app key，参数2为app secret
-        OppoRegister.register(this, "94025bc1c18640a4b6a1fbf8212f5d50", "2b41d32ba46a49beafa601b8832ba4d4");*/
+       // OppoRegister.register(this, "94025bc1c18640a4b6a1fbf8212f5d50", "2b41d32ba46a49beafa601b8832ba4d4");
     }
     /**
      * 添加Activity到集合中

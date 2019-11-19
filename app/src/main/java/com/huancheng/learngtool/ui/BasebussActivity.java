@@ -9,6 +9,7 @@ import android.view.MenuItem;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.umeng.message.PushAgent;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +29,7 @@ public abstract class BasebussActivity extends AppCompatActivity {
         initView();
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
         ImageLoader.getInstance().init(config);
+        PushAgent.getInstance(this).onAppStart();
     }
     /**
      * 初始化布局

@@ -8,7 +8,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.huancheng.learngtool.R;
+import com.huancheng.learngtool.bean.UserBean;
+import com.huancheng.learngtool.util.SharedPreferencesUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -19,6 +26,8 @@ import java.util.HashMap;
 import butterknife.BindView;
 import butterknife.OnClick;
 import okhttp3.Call;
+
+import static com.huancheng.learngtool.util.SharedPreferencesUtil.USER_BEAN;
 
 public class MyFragment extends BaseFragment {
     @BindView(R.id.my_img)
@@ -42,6 +51,14 @@ public class MyFragment extends BaseFragment {
 
     @Override
     protected void initView() {
+        UserBean userBean = SharedPreferencesUtil.getObject(_context, USER_BEAN, UserBean.class);
+        if (userBean==null){
+            startActivity(new Intent(getActivity(),LoginActivity.class));
+        }else {
+            my_name.setText(userBean.getName());
+            Glide.with(this).load(userBean.getIconurl()).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(my_img);
+        }
+
     }
 
     @Override
@@ -58,12 +75,13 @@ public class MyFragment extends BaseFragment {
     protected void doActivityResult(int requestCode, Intent intent) {
 
     }
-    @OnClick({R.id.my_vip,R.id.my_talk,R.id.my_about,R.id.my_chack})
+    @OnClick({R.id.my_vip,R.id.my_talk,R.id.my_about,R.id.my_chack,R.id.my_exit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.my_vip:
                 break;
             case R.id.my_talk:
+                getActivity().startActivity(new Intent(getActivity(),SuggestActivity.class));
                 break;
             case R.id.my_about:
                 getActivity().startActivity(new Intent(getActivity(),AboutActivity.class));
@@ -71,6 +89,10 @@ public class MyFragment extends BaseFragment {
             case R.id.my_chack:
                 Toast.makeText(getActivity(),"已是最新版本",Toast.LENGTH_LONG).show();
                 break;
+            case R.id.my_exit:
+                getActivity().startActivity(new Intent(getActivity(),LoginActivity.class));
+                SharedPreferencesUtil.clear(getActivity());
+                getActivity().finish();
         }
     }
 }

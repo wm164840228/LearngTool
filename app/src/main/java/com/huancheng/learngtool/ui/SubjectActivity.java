@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -60,6 +61,9 @@ public class SubjectActivity extends BasebussActivity {
 
     private void init() {
         List<Classify> list = MainApplication.getmDaoSession().getClassifyDao().queryBuilder().where(ClassifyDao.Properties.Kemu.eq(sub), whereCondition1, whereCondition2, whereCondition3) .orderDesc(ClassifyDao.Properties.Id).list();
+        if (list.size()==0){
+            Toast.makeText(this,"暂无错题，快去首页添加吧",Toast.LENGTH_LONG).show();
+        }
         subject_recycler.setLayoutManager(new LinearLayoutManager(this));
         SubjectAdapter subjectAdapter = new SubjectAdapter(SubjectActivity.this, list);
         subject_recycler.setAdapter(subjectAdapter);

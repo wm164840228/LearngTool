@@ -12,6 +12,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.Spannable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -120,6 +121,7 @@ public class CalculationActivity extends BaseActivity {
         initNumeric();
         initOperator();
         initFunction();
+        setGodMode(false);
     }
 
     private void initTop() {
@@ -491,6 +493,7 @@ public class CalculationActivity extends BaseActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            inText.setInputType(InputType.TYPE_NULL);
             imm.hideSoftInputFromWindow(inText.getWindowToken(), 0);
         }
     }

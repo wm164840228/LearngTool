@@ -16,6 +16,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.huancheng.learngtool.R;
 import com.huancheng.learngtool.bean.UserBean;
 import com.huancheng.learngtool.util.SharedPreferencesUtil;
+import com.huancheng.learngtool.util.UpdateAppUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -79,6 +80,7 @@ public class MyFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.my_vip:
+                getActivity().startActivity(new Intent(getActivity(),VipActivity.class));
                 break;
             case R.id.my_talk:
                 getActivity().startActivity(new Intent(getActivity(),SuggestActivity.class));
@@ -87,7 +89,8 @@ public class MyFragment extends BaseFragment {
                 getActivity().startActivity(new Intent(getActivity(),AboutActivity.class));
                 break;
             case R.id.my_chack:
-                Toast.makeText(getActivity(),"已是最新版本",Toast.LENGTH_LONG).show();
+                UpdateAppUtil.initUptate(getActivity().getApplication());
+                UpdateAppUtil.checkUpdate(getActivity());
                 break;
             case R.id.my_exit:
                 getActivity().startActivity(new Intent(getActivity(),LoginActivity.class));

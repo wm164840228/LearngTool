@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.huancheng.learngtool.R;
@@ -15,7 +16,7 @@ public class SuggestActivity extends BasebussActivity {
     @BindView(R.id.suggest_button)
     Button suggest_button;
     @BindView(R.id.suggest_text)
-    Button suggest_text;
+    EditText suggest_text;
 
     @Override
     protected int setCustomLayout() {

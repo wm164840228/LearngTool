@@ -37,7 +37,7 @@ public class MainApplication extends Application {
         PlatformConfig.setQQZone("101828804","dc57b43cdb94741728fcacb2c80bedda");
         sInstance = this;
         //初始化友盟
-        UMConfigure.init(this,UMConfigure.DEVICE_TYPE_PHONE,"cd5224a5a7c1158d8d344eef91d9fd03");//58edcfeb310c93091c000be2 5965ee00734be40b580001a0
+        UMConfigure.init(this,UMConfigure.DEVICE_TYPE_PHONE,"b3c00096102634021da772d81f2483cb");//58edcfeb310c93091c000be2 5965ee00734be40b580001a0
         UMConfigure.setLogEnabled(true);
         MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
         //获取消息推送代理示例

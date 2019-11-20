@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     buildToolsVersion "29.0.2"
     defaultConfig {
-        applicationId "com.huancheng.learngtool"
+        applicationId "com.huancheng.learngtool.nearme.gamecenter"
         minSdkVersion 15
         targetSdkVersion 28
         versionCode 1
@@ -132,4 +132,7 @@ dependencies {
     implementation files('libs/umeng-share-wechat-simplify-6.9.6.jar')
     implementation files('libs/umeng-sharetool-6.9.6.jar')
     implementation files('libs/umeng-share-core-6.9.6.jar')
+    //检查更新
+    implementation 'com.github.xuexiangjys:XUpdate:1.1.1'
+
 }

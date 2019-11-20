@@ -10,11 +10,10 @@ import android.widget.RadioButton;
 
 import com.huancheng.learngtool.R;
 import com.huancheng.learngtool.util.GlideEngine;
+import com.huancheng.learngtool.util.UpdateAppUtil;
 import com.huantansheng.easyphotos.EasyPhotos;
 import com.huantansheng.easyphotos.callback.SelectCallback;
 import com.huantansheng.easyphotos.models.album.entity.Photo;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +45,9 @@ public class MainActivity extends BasebussActivity implements BaseFragment.Fragm
         fragmentManager = getSupportFragmentManager();
         addFragment();
         showFragment(fragmentList.get(0));
+        //自动检查更新
+        UpdateAppUtil.initUptate(getApplication());
+        UpdateAppUtil.mainUpdate(MainActivity.this);
         return this;
     }
 

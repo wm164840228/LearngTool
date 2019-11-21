@@ -8,6 +8,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
@@ -96,14 +97,7 @@ public class CalculationActivity extends BaseActivity {
             "7", "8", "9",
             "4", "5", "6",
             "1", "2", "3",
-            "·", "0", "=",
-            "A", "B", "C",
-            "D", "E", "F",
-            "⑵", "⑶", "⑷",
-            "⑸", "⑹", "⑺",
-            "⑻", "⑼", "⑽",
-            "⑾", "⑿", "⒀",
-            "⒁", "⒂", "⒃"};
+            "·", "0", "="};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -493,13 +487,13 @@ public class CalculationActivity extends BaseActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            inText.setInputType(InputType.TYPE_NULL);
             imm.hideSoftInputFromWindow(inText.getWindowToken(), 0);
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        setGodMode(false);
         return true;
     }
 

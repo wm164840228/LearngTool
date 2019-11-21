@@ -14,7 +14,6 @@ public class ResultsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         TextView resultsText = (TextView) findViewById(R.id.text_results);
         resultsText.setText(getIntent().getStringExtra("results"));
     }
@@ -23,6 +22,5 @@ public class ResultsActivity extends BaseActivity {
         Intent intent = new Intent(context, ResultsActivity.class);
         intent.putExtra("results", results);
         context.startActivity(intent);
-
     }
 }

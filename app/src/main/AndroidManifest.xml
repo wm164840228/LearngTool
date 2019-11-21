@@ -38,10 +38,11 @@
         <activity android:name=".ui.CommitActivity" />
         <activity android:name=".ui.TranslateActivity" />
         <activity android:name=".ui.ResultsActivity" />
-        <activity android:name=".ui.CalculationActivity" />
+        <activity android:name=".ui.CalculationActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity android:name=".ui.MainActivity" /> <!-- ============================ 微信 ========================== -->
         <activity
-            android:name=".wxapi.WXEntryActivity"
+            android:name=".nearme.gamecenter.wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" /> <!-- ============================ QQ ========================== -->

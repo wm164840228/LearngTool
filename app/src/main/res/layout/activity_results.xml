@@ -9,6 +9,8 @@
         android:layout_height="match_parent"
         android:fontFamily="sans-serif-light"
         android:padding="8dp"
+        android:textColor="#000"
+        android:textSize="16sp"
         android:textIsSelectable="true" />
 
 </ScrollView>

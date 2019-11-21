@@ -1,4 +1,4 @@
-package com.huancheng.learngtool.wxapi;
+package com.huancheng.learngtool.nearme.gamecenter.wxapi;
 
 
 import com.umeng.socialize.weixin.view.WXCallbackActivity;

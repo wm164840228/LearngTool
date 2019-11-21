@@ -33,7 +33,7 @@ public class MainApplication extends Application {
         context = getApplicationContext();
         //greendao
         initGreenDao();
-        PlatformConfig.setWeixin("wxf76085f37711502a","b3bd49f2299f584eb1c9a36180f752af");
+        PlatformConfig.setWeixin("wx18a192099a9f0627","aab4a984207b366068599b15bc1bb2fd");
         PlatformConfig.setQQZone("101828804","dc57b43cdb94741728fcacb2c80bedda");
         sInstance = this;
         //初始化友盟

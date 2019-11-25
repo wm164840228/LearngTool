@@ -161,21 +161,46 @@ public class CommitActivity extends BasebussActivity {
             zhangwoAdapter.setSelectedList(getIndex(zhangwo, getBundle.getString("chengdu")));
         }
         zhangwo_flowlayout.setAdapter(zhangwoAdapter);
-        commit_text.setText(getBundle.getString("yuanyin"));
+        commit_text.setText(getBundle.getString("beizhu"));
         return this;
     }
-        @OnClick({R.id.commit,R.id.commit_img,R.id.delete})
+        @OnClick({R.id.commit,R.id.commit_img1,R.id.commit_img2,R.id.commit_img3,R.id.commit_img4,R.id.delete})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.commit:
                 commit();
                 break;
-            case R.id.commit_img:
-                Intent intent = new Intent(getApplicationContext(), PhotoActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putStringArrayList("list",stringlist);
-                intent.putExtras(bundle);
-                startActivity(intent);
+            case R.id.commit_img1:
+                Intent intent1 = new Intent(getApplicationContext(), PhotoActivity.class);
+                Bundle bundle1 = new Bundle();
+                bundle1.putStringArrayList("list",stringlist);
+                bundle1.putString("number","1");
+                intent1.putExtras(bundle1);
+                startActivity(intent1);
+                break;
+            case R.id.commit_img2:
+                Intent intent2 = new Intent(getApplicationContext(), PhotoActivity.class);
+                Bundle bundle2 = new Bundle();
+                bundle2.putString("number","2");
+                bundle2.putStringArrayList("list",stringlist);
+                intent2.putExtras(bundle2);
+                startActivity(intent2);
+                break;
+            case R.id.commit_img3:
+                Intent intent3 = new Intent(getApplicationContext(), PhotoActivity.class);
+                Bundle bundle3 = new Bundle();
+                bundle3.putString("number","3");
+                bundle3.putStringArrayList("list",stringlist);
+                intent3.putExtras(bundle3);
+                startActivity(intent3);
+                break;
+            case R.id.commit_img4:
+                Intent intent4 = new Intent(getApplicationContext(), PhotoActivity.class);
+                Bundle bundle4 = new Bundle();
+                bundle4.putStringArrayList("list",stringlist);
+                bundle4.putString("number","4");
+                intent4.putExtras(bundle4);
+                startActivity(intent4);
                 break;
             case R.id.delete:
                 MainApplication.getmDaoSession().getClassifyDao().queryBuilder().where(ClassifyDao.Properties.Id.eq(id)).buildDelete().executeDeleteWithoutDetachingEntities();

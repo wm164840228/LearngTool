@@ -48,7 +48,7 @@ public class PhotoActivity extends BasebussActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         urlList = bundle.getStringArrayList("list");
-        picPosition =0;
+        picPosition=Integer.parseInt(bundle.getString("number"));
     }
 
     /*Adapter*/

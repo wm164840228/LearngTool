@@ -22,7 +22,7 @@ public class SplashActivity extends BasebussActivity {
     ImageView splash_logo;
     @BindView(R.id.splash_skip_view)
     TextView splash_skip_view;
-    private int count=5;
+    private int count=3;
     private Handler mhandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             if (msg.what == 0) {

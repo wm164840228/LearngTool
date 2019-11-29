@@ -5,7 +5,7 @@ android {
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.huancheng.learngtool.nearme.gamecenter"
-        minSdkVersion 15
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -134,5 +134,5 @@ dependencies {
     implementation files('libs/umeng-share-core-6.9.6.jar')
     //检查更新
     implementation 'com.github.xuexiangjys:XUpdate:1.1.1'
-
+    implementation 'com.github.pqpo:SmartCropper:v2.1.3'
 }

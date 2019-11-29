@@ -1,5 +1,6 @@
 package com.huancheng.learngtool.ui;
 
+import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -68,7 +69,6 @@ public class CommitActivity extends BasebussActivity {
     private String[] zhangwo = new String[]{"不懂", "略懂", "基本懂", "完全懂"};
     private ArrayList<Photo> list;
     private Bundle getBundle;
-    private ArrayList<String> stringlist;
     private long id;
 
     @Override
@@ -80,23 +80,11 @@ public class CommitActivity extends BasebussActivity {
     protected Activity initView() {
         getBundle = this.getIntent().getExtras();
         list = getBundle.getParcelableArrayList("list");
-        stringlist = new ArrayList<>();
         id = getBundle.getLong("id");
         if (id ==0){
             delete.setVisibility(View.GONE);
         }
-        for (int i = 0; i< list.size(); i++){
-            if (i==0){
-                GlideEngine.getInstance().loadPhoto(this, list.get(i).uri,commit_img1);
-            }else if (i==1){
-                GlideEngine.getInstance().loadPhoto(this, list.get(i).uri,commit_img2);
-            }else if (i==2){
-                GlideEngine.getInstance().loadPhoto(this, list.get(i).uri,commit_img3);
-            }else if (i==3){
-                GlideEngine.getInstance().loadPhoto(this, list.get(i).uri,commit_img4);
-            }
-            stringlist.add("file:/"+list.get(i).path);
-        }
+        initTop();
         TagAdapter<Object> kemuAdapter = new TagAdapter<Object>(CommitActivity.this.kemu) {
             @Override
             public View getView(FlowLayout flowLayout, int i, Object s) {
@@ -164,7 +152,31 @@ public class CommitActivity extends BasebussActivity {
         commit_text.setText(getBundle.getString("beizhu"));
         return this;
     }
-        @OnClick({R.id.commit,R.id.commit_img1,R.id.commit_img2,R.id.commit_img3,R.id.commit_img4,R.id.delete})
+
+    private void initTop() {
+        if (list.size()>=1){
+            GlideEngine.getInstance().loadPhoto(this, list.get(0).uri,commit_img1);
+        }else {
+            commit_img1.setVisibility(View.INVISIBLE);
+        }
+        if (list.size()>=2){
+            GlideEngine.getInstance().loadPhoto(this, list.get(1).uri,commit_img2);
+        }else {
+            commit_img2.setVisibility(View.INVISIBLE);
+        }
+        if (list.size()>=3){
+            GlideEngine.getInstance().loadPhoto(this, list.get(2).uri,commit_img3);
+        }else {
+            commit_img3.setVisibility(View.INVISIBLE);
+        }
+        if (list.size()>=4){
+            GlideEngine.getInstance().loadPhoto(this, list.get(3).uri,commit_img4);
+        }else {
+            commit_img4.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    @OnClick({R.id.commit,R.id.commit_img1,R.id.commit_img2,R.id.commit_img3,R.id.commit_img4,R.id.delete})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.commit:
@@ -173,34 +185,34 @@ public class CommitActivity extends BasebussActivity {
             case R.id.commit_img1:
                 Intent intent1 = new Intent(getApplicationContext(), PhotoActivity.class);
                 Bundle bundle1 = new Bundle();
-                bundle1.putStringArrayList("list",stringlist);
-                bundle1.putString("number","1");
+                bundle1.putParcelableArrayList("list",list);
+                bundle1.putString("number","0");
                 intent1.putExtras(bundle1);
-                startActivity(intent1);
+                startActivityForResult(intent1,100);
                 break;
             case R.id.commit_img2:
                 Intent intent2 = new Intent(getApplicationContext(), PhotoActivity.class);
                 Bundle bundle2 = new Bundle();
-                bundle2.putString("number","2");
-                bundle2.putStringArrayList("list",stringlist);
+                bundle2.putString("number","1");
+                bundle2.putParcelableArrayList("list",list);
                 intent2.putExtras(bundle2);
-                startActivity(intent2);
+                startActivityForResult(intent2,100);
                 break;
             case R.id.commit_img3:
                 Intent intent3 = new Intent(getApplicationContext(), PhotoActivity.class);
                 Bundle bundle3 = new Bundle();
-                bundle3.putString("number","3");
-                bundle3.putStringArrayList("list",stringlist);
+                bundle3.putString("number","2");
+                bundle3.putParcelableArrayList("list",list);
                 intent3.putExtras(bundle3);
-                startActivity(intent3);
+                startActivityForResult(intent3,100);
                 break;
             case R.id.commit_img4:
                 Intent intent4 = new Intent(getApplicationContext(), PhotoActivity.class);
                 Bundle bundle4 = new Bundle();
-                bundle4.putStringArrayList("list",stringlist);
-                bundle4.putString("number","4");
+                bundle4.putParcelableArrayList("list",list);
+                bundle4.putString("number","3");
                 intent4.putExtras(bundle4);
-                startActivity(intent4);
+                startActivityForResult(intent4,100);
                 break;
             case R.id.delete:
                 MainApplication.getmDaoSession().getClassifyDao().queryBuilder().where(ClassifyDao.Properties.Id.eq(id)).buildDelete().executeDeleteWithoutDetachingEntities();
@@ -253,4 +265,20 @@ public class CommitActivity extends BasebussActivity {
         }
         return -1;//如果未找到返回-1
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==100){
+            if (resultCode==101){
+                Bundle bundle = data.getExtras();
+                list.clear();
+                list.addAll(bundle.getParcelableArrayList("list"));
+                initTop();
+                setResult(200);
+            }
+        }
+    }
+
+
 }

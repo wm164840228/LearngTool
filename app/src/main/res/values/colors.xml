@@ -7,4 +7,5 @@
     <!-- 浅灰色 -->
     <color name="gray">#eeeeee</color>
     <color name="updateblue">#239bfe</color>
+    <color name="transparent_photos">#99000000</color>
 </resources>

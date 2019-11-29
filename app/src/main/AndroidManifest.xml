@@ -20,7 +20,8 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.VipActivity"></activity>
+        <activity android:name=".ui.CutActivity"></activity>
+        <activity android:name=".ui.VipActivity" />
         <activity android:name=".ui.SuggestActivity" />
         <activity android:name=".ui.SplashActivity">
             <intent-filter>
@@ -38,8 +39,9 @@
         <activity android:name=".ui.CommitActivity" />
         <activity android:name=".ui.TranslateActivity" />
         <activity android:name=".ui.ResultsActivity" />
-        <activity android:name=".ui.CalculationActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity
+            android:name=".ui.CalculationActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".ui.MainActivity" /> <!-- ============================ 微信 ========================== -->
         <activity
             android:name=".nearme.gamecenter.wxapi.WXEntryActivity"

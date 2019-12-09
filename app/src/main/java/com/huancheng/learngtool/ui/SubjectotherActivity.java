@@ -1,6 +1,7 @@
 package com.huancheng.learngtool.ui;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -11,6 +12,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,53 +27,73 @@ import com.huancheng.learngtool.adapter.SubjectAdapter;
 import com.huancheng.learngtool.bean.Classify;
 import com.huancheng.learngtool.bean.UriDeserializer;
 import com.huancheng.learngtool.util.NullUtil;
+import com.huancheng.learngtool.util.SharedPreferencesUtil;
 import com.huantansheng.easyphotos.models.album.entity.Photo;
 
-import org.greenrobot.greendao.query.QueryBuilder;
 import org.greenrobot.greendao.query.WhereCondition;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubjectActivity extends BasebussActivity {
+public class SubjectotherActivity extends BasebussActivity {
     @BindView(R.id.subject_recycler)
     RecyclerView subject_recycler;
-    @BindView(R.id.subject_select)
-    TextView subject_select;
     @BindView(R.id.subject_title)
     TextView subject_title;
-    private WhereCondition whereCondition1;
-    private WhereCondition whereCondition2;
-    private WhereCondition whereCondition3;
-    private WhereCondition whereCondition4;
-    private String sub;
-    private String nianji;
+    @BindView(R.id.subject_spinner)
+    Spinner subject_spinner;
+
+    private WhereCondition whereCondition;
+    private String tixing;
+    private String chengdu;
+    private String[] ctype;
+    private List<Classify> list;
 
     @Override
     protected int setCustomLayout() {
-        return R.layout.activity_subject;
+        return R.layout.activity_subjectother;
     }
 
     @Override
     protected Activity initView() {
-        sub = getIntent().getStringExtra("sub");
-        nianji = getIntent().getStringExtra("nianji");
-        subject_title.setText(sub);
-        whereCondition1 = ClassifyDao.Properties.Kemu.eq(sub);
-        whereCondition2 = ClassifyDao.Properties.Kemu.eq(sub);
-        whereCondition3 = ClassifyDao.Properties.Kemu.eq(sub);
-        whereCondition4 = ClassifyDao.Properties.Nianji.eq(nianji);
+        tixing = getIntent().getStringExtra("tixing");
+        chengdu = getIntent().getStringExtra("chengdu");
+        if (tixing!=null){
+            subject_title.setText(tixing);
+            whereCondition = ClassifyDao.Properties.Tixing.eq(tixing);
+        }else if (chengdu!=null){
+            subject_title.setText(chengdu);
+            whereCondition = ClassifyDao.Properties.Chengdu.eq(chengdu);
+        }
+        ctype = new String[]{"全学科","语文", "数学", "英语", "历史", "地理", "政治", "生物", "物理", "化学","科学", "其他"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, ctype);  //创建一个数组适配器
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);     //设置下拉列表框的下拉选项样式
+        subject_spinner.setAdapter(adapter);
+        subject_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                init();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         init();
         return this;
     }
-
     private void init() {
-        List<Classify> list = MainApplication.getmDaoSession().getClassifyDao().queryBuilder().where(ClassifyDao.Properties.Kemu.eq(sub), whereCondition1, whereCondition2, whereCondition3,whereCondition4) .orderDesc(ClassifyDao.Properties.Id).list();
+        if (subject_spinner.getSelectedItem().toString().equals("全学科")){
+            list = MainApplication.getmDaoSession().getClassifyDao().queryBuilder().where(whereCondition).orderDesc(ClassifyDao.Properties.Id).list();
+        }else {
+            list = MainApplication.getmDaoSession().getClassifyDao().queryBuilder().where(whereCondition,ClassifyDao.Properties.Kemu.eq(subject_spinner.getSelectedItem().toString())).orderDesc(ClassifyDao.Properties.Id).list();
+        }
         if (list.size()==0){
             Toast.makeText(this,"暂无错题，快去首页添加吧",Toast.LENGTH_LONG).show();
         }
         subject_recycler.setLayoutManager(new LinearLayoutManager(this));
-        SubjectAdapter subjectAdapter = new SubjectAdapter(SubjectActivity.this, list);
+        SubjectAdapter subjectAdapter = new SubjectAdapter(SubjectotherActivity.this, list);
         subject_recycler.setAdapter(subjectAdapter);
         subjectAdapter.setOnItemClickListener(new SubjectAdapter.OnItemClickListener() {
             @Override
@@ -87,7 +111,6 @@ public class SubjectActivity extends BasebussActivity {
                 bundle.putString("daan",list.get(position).getDaan());
                 bundle.putString("laiyuan",list.get(position).getLaiyuan());
                 bundle.putString("tixing",list.get(position).getTixing());
-                bundle.putString("nianji",nianji);
                 bundle.putString("yuanyin",list.get(position).getYuanyin());
                 bundle.putLong("id",list.get(position).getId());
                 intent.putExtras(bundle);
@@ -96,42 +119,21 @@ public class SubjectActivity extends BasebussActivity {
         });
     }
 
-    @OnClick({R.id.subject_select,R.id.subject_title,R.id.iv_left_title_bar})
+
+    @OnClick({R.id.subject_title,R.id.iv_left_title_bar})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_left_title_bar:
                 finish();
                 break;
-            case R.id.subject_select:
-                startActivityForResult(new Intent(this,SelectActivity.class),100);
-                break;
             case R.id.subject_title:
                 break;
         }
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode==100){
-            String laiyuan = data.getStringExtra("laiyuan");
-            String tixing = data.getStringExtra("tixing");
-            String zhangwo = data.getStringExtra("zhangwo");
-            if (NullUtil.StringIsNull(laiyuan)){
-                whereCondition1 = ClassifyDao.Properties.Kemu.eq(sub);
-            }else {
-                whereCondition1 = ClassifyDao.Properties.Laiyuan.eq(laiyuan);
-            }
-            if (NullUtil.StringIsNull(tixing)){
-                whereCondition2 = ClassifyDao.Properties.Kemu.eq(sub);
-            }else {
-                whereCondition2 = ClassifyDao.Properties.Tixing.eq(tixing);
-            }
-            if (NullUtil.StringIsNull(zhangwo)){
-                whereCondition3 = ClassifyDao.Properties.Kemu.eq(sub);
-            }else {
-                whereCondition3 = ClassifyDao.Properties.Chengdu.eq(zhangwo);
-            }
             init();
         }else if (resultCode==200){
             init();

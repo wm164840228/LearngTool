@@ -8,4 +8,6 @@
     <color name="gray">#eeeeee</color>
     <color name="updateblue">#239bfe</color>
     <color name="transparent_photos">#99000000</color>
+    <color name="maintop1">#e79d0d</color>
+    <color name="maintop2">#898989</color>
 </resources>

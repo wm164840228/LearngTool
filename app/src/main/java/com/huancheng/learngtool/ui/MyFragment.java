@@ -41,7 +41,7 @@ public class MyFragment extends BaseFragment {
     LinearLayout my_about;
     @BindView(R.id.my_talk)
     LinearLayout my_talk;
-    public static MyFragment newInstance() {
+    static MyFragment newInstance() {
         MyFragment fragment = new MyFragment();
         return fragment;
     }

@@ -3,22 +3,33 @@
 android:orientation="vertical" android:layout_width="match_parent"
     android:background="@color/colorWhite"
 android:layout_height="match_parent">
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#fff"
-        android:textSize="18sp"
-        android:layout_gravity="center"
-        android:gravity="center"
         android:padding="15dp"
-        android:background="#ffa500"
-        android:text="@string/app_name"/>
+        android:background="#ffa500">
+        <Spinner
+            android:id="@+id/main_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/app_name"/>
+    </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_margin="10dp"
         android:layout_height="wrap_content">
         <RelativeLayout
+            android:id="@+id/main_top1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1">
@@ -26,12 +37,13 @@ android:layout_height="match_parent">
                 android:id="@+id/cuotiben"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="错题本"
+                android:text="科目"
                 android:layout_centerInParent="true"
                 android:textSize="16sp"
-                android:textColor="#e79d0d"
+                android:textColor="@color/maintop1"
                 />
             <ImageView
+                android:id="@+id/cuotiben_line"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cuotiben"
@@ -39,7 +51,32 @@ android:layout_height="match_parent">
                 android:layout_centerHorizontal="true"
                 android:src="@mipmap/frist_choice"/>
         </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/main_top2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/other"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="题型"
+                android:layout_centerInParent="true"
+                android:textSize="16sp"
+                android:textColor="@color/maintop2"
+                />
+            <ImageView
+                android:id="@+id/other_line"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/other"
+                android:layout_marginTop="5dp"
+                android:visibility="invisible"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/frist_choice"/>
+        </RelativeLayout>
         <TextView
+            android:visibility="gone"
         android:id="@+id/main_calculation"
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -49,6 +86,7 @@ android:layout_height="match_parent">
         android:text="计算器"
         android:textColor="#898989"/>
         <TextView
+            android:visibility="gone"
             android:id="@+id/main_translate"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -58,20 +96,9 @@ android:layout_height="match_parent">
             android:text="翻译"
             android:textColor="#898989"/>
     </LinearLayout>
-    <RelativeLayout
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/main_viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="11"
-        >
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/main_course"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="5dp"
-            android:overScrollMode="never"
-            android:scrollbars="none"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"/>
-    </RelativeLayout>
+        android:layout_weight="1"/>
 </LinearLayout>

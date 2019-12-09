@@ -56,6 +56,8 @@ public class CommitActivity extends BasebussActivity {
     TagFlowLayout yuanyin_flowlayout;
     @BindView(R.id.zhangwo_flowlayout)
     TagFlowLayout zhangwo_flowlayout;
+    @BindView(R.id.nianji_flowlayout)
+    TagFlowLayout nianji_flowlayout;
     @BindView(R.id.commit_text)
     EditText commit_text;
     @BindView(R.id.commit)
@@ -64,9 +66,10 @@ public class CommitActivity extends BasebussActivity {
     TextView delete;
     private String[] kemu = new String[]{"语文", "数学", "英语", "历史", "地理", "政治", "生物", "物理", "化学","科学", "其他"};
     private String[] laiyuan = new String[]{"默认", "作业", "单元测试", "考试", "课本", "老师"};
-    private String[] tixing = new String[]{"选择题", "填空题", "问答题", "判断题"};
+    private String[] tixing = new String[]{"选择题", "填空题", "问答题", "判断题","其他"};
     private String[] yuanyin = new String[]{"概念", "审题", "粗心"};
     private String[] zhangwo = new String[]{"不懂", "略懂", "基本懂", "完全懂"};
+    private String[] nianji = new String[]{"一年级", "二年级", "三年级", "四年级","五年级", "六年级", "七年级", "八年级","九年级", "初一", "初二", "初三","高一", "高二", "高三"};
     private ArrayList<Photo> list;
     private Bundle getBundle;
     private long id;
@@ -149,6 +152,19 @@ public class CommitActivity extends BasebussActivity {
             zhangwoAdapter.setSelectedList(getIndex(zhangwo, getBundle.getString("chengdu")));
         }
         zhangwo_flowlayout.setAdapter(zhangwoAdapter);
+
+        TagAdapter<Object> nianjiAdapter = new TagAdapter<Object>(nianji) {
+            @Override
+            public View getView(FlowLayout flowLayout, int i, Object s) {
+                TextView tv = (TextView) LayoutInflater.from(getApplicationContext()).inflate(R.layout.item_view_textview, nianji_flowlayout, false);
+                tv.setText(String.valueOf(s));
+                return tv;
+            }
+        };
+        if (getIndex(nianji, getBundle.getString("nianji"))!=-1){
+            nianjiAdapter.setSelectedList(getIndex(nianji, getBundle.getString("nianji")));
+        }
+        nianji_flowlayout.setAdapter(nianjiAdapter);
         commit_text.setText(getBundle.getString("beizhu"));
         return this;
     }
@@ -228,8 +244,10 @@ public class CommitActivity extends BasebussActivity {
         Iterator<Integer> iteratortixing = tixing_flowlayout.getSelectedList().iterator();
         Iterator<Integer> iteratoryuanyin = yuanyin_flowlayout.getSelectedList().iterator();
         Iterator<Integer> iteratorzhangwo = zhangwo_flowlayout.getSelectedList().iterator();
+        Iterator<Integer> iteratornianji = nianji_flowlayout.getSelectedList().iterator();
         boolean hasNext = iteratorkemu.hasNext();
-        if (!NullUtil.listIsNull(list)&&hasNext){
+        boolean hasNext1 = iteratornianji.hasNext();
+        if (!NullUtil.listIsNull(list)&&hasNext&&hasNext1){
             Classify classifyBean = new Classify();
             classifyBean.setKemu(kemu[iteratorkemu.next()]);
             if (iteratorlaiyuan.hasNext())
@@ -240,6 +258,8 @@ public class CommitActivity extends BasebussActivity {
                 classifyBean.setYuanyin(yuanyin[iteratoryuanyin.next()]);
             if (iteratorzhangwo.hasNext())
                 classifyBean.setChengdu(zhangwo[iteratorzhangwo.next()]);
+            if (iteratornianji.hasNext())
+                classifyBean.setNianji(nianji[iteratornianji.next()]);
             classifyBean.setTime(TimeUtils.currentTimeMillis());
             classifyBean.setUri(new GsonBuilder()
                     .registerTypeAdapter(Uri.class, new UriSerializer())
@@ -253,8 +273,10 @@ public class CommitActivity extends BasebussActivity {
                 MainApplication.getmDaoSession().getClassifyDao().insert(classifyBean);
             }
             finish();
-        }else {
+        }else if (!hasNext){
             Toast.makeText(getApplicationContext(),"请选择科目后才可以提交",Toast.LENGTH_LONG).show();
+        }else if (!hasNext1){
+            Toast.makeText(getApplicationContext(),"请选择年级后才可以提交",Toast.LENGTH_LONG).show();
         }
     }
     public static int getIndex(String[] arr, String value) {

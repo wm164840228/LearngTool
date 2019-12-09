@@ -15,12 +15,11 @@
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:layout_margin="15dp"
-            android:layout_height="90dp">
+            android:layout_height="200dp">
             <ImageView
                 android:id="@+id/commit_img1"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:scaleType="centerCrop"
                 android:layout_margin="3dp" />
             <ImageView
@@ -29,6 +28,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="3dp"
                 android:layout_weight="1"
+                android:visibility="gone"
                 android:scaleType="centerCrop" />
             <ImageView
                 android:id="@+id/commit_img3"
@@ -36,12 +36,14 @@
                 android:layout_height="match_parent"
                 android:layout_margin="3dp"
                 android:layout_weight="1"
+                android:visibility="gone"
                 android:scaleType="centerCrop" />
             <ImageView
                 android:id="@+id/commit_img4"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="3dp"
+                android:visibility="gone"
                 android:scaleType="centerCrop"
                 android:layout_weight="1" />
         </LinearLayout>
@@ -130,22 +132,37 @@
             android:padding="10dp">
         </com.zhy.view.flowlayout.TagFlowLayout>
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:textColor="#000000"
+            android:text="年级"/>
+        <com.zhy.view.flowlayout.TagFlowLayout
+            android:id="@+id/nianji_flowlayout"
+            app:max_select="1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+        </com.zhy.view.flowlayout.TagFlowLayout>
+        <TextView
             android:id="@+id/commit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:background="@color/design_default_color_primary"
+            android:background="#ffba33"
             android:textColor="@color/colorWhite"
             android:padding="10dp"
             android:gravity="center"
             android:layout_margin="10dp"
-            android:text="保存"/>
+            android:text="确定"/>
         <TextView
             android:id="@+id/delete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:background="#ff0000"
+            android:background="#ff5c5c"
             android:textColor="@color/colorWhite"
             android:padding="10dp"
             android:gravity="center"

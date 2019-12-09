@@ -20,7 +20,8 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.CutActivity"></activity>
+        <activity android:name=".ui.SubjectotherActivity"></activity>
+        <activity android:name=".ui.CutActivity" />
         <activity android:name=".ui.VipActivity" />
         <activity android:name=".ui.SuggestActivity" />
         <activity android:name=".ui.SplashActivity">

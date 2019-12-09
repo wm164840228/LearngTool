@@ -10,6 +10,8 @@ import android.widget.RadioButton;
 
 import com.huancheng.learngtool.R;
 import com.huancheng.learngtool.util.GlideEngine;
+import com.huancheng.learngtool.util.NullUtil;
+import com.huancheng.learngtool.util.SharedPreferencesUtil;
 import com.huancheng.learngtool.util.UpdateAppUtil;
 import com.huantansheng.easyphotos.EasyPhotos;
 import com.huantansheng.easyphotos.callback.SelectCallback;
@@ -17,6 +19,7 @@ import com.huantansheng.easyphotos.models.album.entity.Photo;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -56,9 +59,9 @@ public class MainActivity extends BasebussActivity implements BaseFragment.Fragm
      * */
     private void addFragment() {
         fragmentList = new ArrayList<>();
-        MainFragment mainFragment = new MainFragment();
+        MainFragment mainFragment = MainFragment.newInstance();
         fragmentList.add(mainFragment);
-        MyFragment myFragment = new MyFragment();
+        MyFragment myFragment = MyFragment.newInstance();
         fragmentList.add(myFragment);
 }
     /*
@@ -91,7 +94,10 @@ public class MainActivity extends BasebussActivity implements BaseFragment.Fragm
                 showFragment(fragmentList.get(0));
                 break;
             case R.id.btn_center:
-                EasyPhotos.createAlbum(this, true, GlideEngine.getInstance())
+                EasyPhotos.createCamera(this)
+                        .setFileProviderAuthority("com.huantansheng.easyphotos.fileprovider")
+                        .start(101);
+            /*    EasyPhotos.createAlbum(this, true, GlideEngine.getInstance())
                         .setFileProviderAuthority("com.huantansheng.easyphotos.fileprovider")
                         .setCount(4)
                         .start(new SelectCallback() {
@@ -103,8 +109,29 @@ public class MainActivity extends BasebussActivity implements BaseFragment.Fragm
                                 intent.putExtras(bundle);
                                 startActivity(intent);
                             }
-                        });
+                        });*/
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (RESULT_OK == resultCode) {
+            //相机或相册回调
+            if (requestCode == 101) {
+                //返回对象集合：如果你需要了解图片的宽、高、大小、用户是否选中原图选项等信息，可以用这个
+                ArrayList<Photo> photos = data.getParcelableArrayListExtra(EasyPhotos.RESULT_PHOTOS);
+                Intent intent = new Intent(getApplicationContext(), CommitActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("list",photos);
+                if (!NullUtil.StringIsNull((String) SharedPreferencesUtil.getParam(_context, "nianji",""))){
+                    intent.putExtra("nianji",(String) SharedPreferencesUtil.getParam(_context, "nianji",""));
+                }
+                intent.putExtras(bundle);
+                startActivity(intent);
+                return;
+            }
         }
     }
 }

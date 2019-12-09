@@ -16,11 +16,12 @@ public class Classify {
     String yuanyin;//原因
     String beizhu;//备注
     String daan;//答案
+    String nianji;//年级
     long time;//时间
-    @Generated(hash = 1731252698)
+    @Generated(hash = 1807565117)
     public Classify(Long id, String uri, String kemu, String laiyuan,
             String chengdu, String tixing, String yuanyin, String beizhu,
-            String daan, long time) {
+            String daan, String nianji, long time) {
         this.id = id;
         this.uri = uri;
         this.kemu = kemu;
@@ -30,6 +31,7 @@ public class Classify {
         this.yuanyin = yuanyin;
         this.beizhu = beizhu;
         this.daan = daan;
+        this.nianji = nianji;
         this.time = time;
     }
     @Generated(hash = 767880343)
@@ -94,5 +96,11 @@ public class Classify {
     }
     public void setTime(long time) {
         this.time = time;
+    }
+    public String getNianji() {
+        return this.nianji;
+    }
+    public void setNianji(String nianji) {
+        this.nianji = nianji;
     }
 }

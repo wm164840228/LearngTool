@@ -30,7 +30,7 @@ public class SelectActivity extends BasebussActivity {
     @BindView(R.id.commit)
     TextView commit;
     private String[] laiyuan = new String[]{"默认", "作业", "单元测试", "考试", "课本", "老师"};
-    private String[] tixing = new String[]{"选择题", "填空题", "问答题", "判断题"};
+    private String[] tixing = new String[]{"选择题", "填空题", "问答题", "判断题","其他"};
     private String[] zhangwo = new String[]{"不懂", "略懂", "基本懂", "完全懂"};
     @Override
     protected int setCustomLayout() {

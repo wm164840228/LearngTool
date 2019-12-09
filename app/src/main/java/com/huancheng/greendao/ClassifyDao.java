@@ -33,7 +33,8 @@ public class ClassifyDao extends AbstractDao<Classify, Long> {
         public final static Property Yuanyin = new Property(6, String.class, "yuanyin", false, "YUANYIN");
         public final static Property Beizhu = new Property(7, String.class, "beizhu", false, "BEIZHU");
         public final static Property Daan = new Property(8, String.class, "daan", false, "DAAN");
-        public final static Property Time = new Property(9, long.class, "time", false, "TIME");
+        public final static Property Nianji = new Property(9, String.class, "nianji", false, "NIANJI");
+        public final static Property Time = new Property(10, long.class, "time", false, "TIME");
     }
 
 
@@ -58,7 +59,8 @@ public class ClassifyDao extends AbstractDao<Classify, Long> {
                 "\"YUANYIN\" TEXT," + // 6: yuanyin
                 "\"BEIZHU\" TEXT," + // 7: beizhu
                 "\"DAAN\" TEXT," + // 8: daan
-                "\"TIME\" INTEGER NOT NULL );"); // 9: time
+                "\"NIANJI\" TEXT," + // 9: nianji
+                "\"TIME\" INTEGER NOT NULL );"); // 10: time
     }
 
     /** Drops the underlying database table. */
@@ -115,7 +117,12 @@ public class ClassifyDao extends AbstractDao<Classify, Long> {
         if (daan != null) {
             stmt.bindString(9, daan);
         }
-        stmt.bindLong(10, entity.getTime());
+ 
+        String nianji = entity.getNianji();
+        if (nianji != null) {
+            stmt.bindString(10, nianji);
+        }
+        stmt.bindLong(11, entity.getTime());
     }
 
     @Override
@@ -166,7 +173,12 @@ public class ClassifyDao extends AbstractDao<Classify, Long> {
         if (daan != null) {
             stmt.bindString(9, daan);
         }
-        stmt.bindLong(10, entity.getTime());
+ 
+        String nianji = entity.getNianji();
+        if (nianji != null) {
+            stmt.bindString(10, nianji);
+        }
+        stmt.bindLong(11, entity.getTime());
     }
 
     @Override
@@ -186,7 +198,8 @@ public class ClassifyDao extends AbstractDao<Classify, Long> {
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // yuanyin
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // beizhu
             cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // daan
-            cursor.getLong(offset + 9) // time
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // nianji
+            cursor.getLong(offset + 10) // time
         );
         return entity;
     }
@@ -202,7 +215,8 @@ public class ClassifyDao extends AbstractDao<Classify, Long> {
         entity.setYuanyin(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
         entity.setBeizhu(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
         entity.setDaan(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
-        entity.setTime(cursor.getLong(offset + 9));
+        entity.setNianji(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setTime(cursor.getLong(offset + 10));
      }
     
     @Override

@@ -69,6 +69,33 @@
             android:layout_height="15dp"
             android:background="#F6F4FA"/>
         <LinearLayout
+            android:id="@+id/my_photo"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_my_management"
+                android:layout_gravity="center"
+                android:layout_marginLeft="23dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginBottom="17dp"
+                android:layout_marginRight="18dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="多图导入"
+                android:textSize="16sp"
+                android:textColor="#3d3d3d"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:background="#F6F4FA"/>
+        <LinearLayout
             android:id="@+id/my_chack"
             android:layout_width="match_parent"
             android:orientation="horizontal"

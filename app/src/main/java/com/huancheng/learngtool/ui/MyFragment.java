@@ -1,6 +1,7 @@
 package com.huancheng.learngtool.ui;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,13 +16,17 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.huancheng.learngtool.R;
 import com.huancheng.learngtool.bean.UserBean;
+import com.huancheng.learngtool.util.GlideEngine;
 import com.huancheng.learngtool.util.SharedPreferencesUtil;
 import com.huancheng.learngtool.util.UpdateAppUtil;
+import com.huantansheng.easyphotos.EasyPhotos;
+import com.huantansheng.easyphotos.callback.SelectCallback;
+import com.huantansheng.easyphotos.models.album.entity.Photo;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 
-
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -41,6 +46,8 @@ public class MyFragment extends BaseFragment {
     LinearLayout my_about;
     @BindView(R.id.my_talk)
     LinearLayout my_talk;
+    @BindView(R.id.my_photo)
+    LinearLayout my_photo;
     static MyFragment newInstance() {
         MyFragment fragment = new MyFragment();
         return fragment;
@@ -76,7 +83,7 @@ public class MyFragment extends BaseFragment {
     protected void doActivityResult(int requestCode, Intent intent) {
 
     }
-    @OnClick({R.id.my_vip,R.id.my_talk,R.id.my_about,R.id.my_chack,R.id.my_exit})
+    @OnClick({R.id.my_vip,R.id.my_talk,R.id.my_about,R.id.my_chack,R.id.my_exit,R.id.my_photo})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.my_vip:
@@ -96,6 +103,22 @@ public class MyFragment extends BaseFragment {
                 getActivity().startActivity(new Intent(getActivity(),LoginActivity.class));
                 SharedPreferencesUtil.clear(getActivity());
                 getActivity().finish();
+                break;
+            case R.id.my_photo:
+                EasyPhotos.createAlbum(this, true, GlideEngine.getInstance())
+                        .setFileProviderAuthority("com.huantansheng.easyphotos.fileprovider")
+                        .setCount(1)
+                        .start(new SelectCallback() {
+                            @Override
+                            public void onResult(ArrayList<Photo> photos, boolean isOriginal) {
+                                Intent intent = new Intent(getActivity(), CommitActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putParcelableArrayList("list",photos);
+                                intent.putExtras(bundle);
+                                startActivity(intent);
+                            }
+                        });
+                break;
         }
     }
 }

@@ -78,7 +78,7 @@ public class MainFragment extends BaseFragment {
 
             }
         });
-        ctype = new String[]{"一年级", "二年级", "三年级", "四年级","五年级", "六年级", "七年级", "八年级","九年级", "初一", "初二", "初三","高一", "高二", "高三"};
+        ctype = new String[]{"低年级","五年级", "六年级", "七年级", "八年级","九年级", "高一", "高二", "高三"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),R.layout.item_spinner, ctype);  //创建一个数组适配器
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);     //设置下拉列表框的下拉选项样式
         main_spinner.setAdapter(adapter);
@@ -98,7 +98,7 @@ public class MainFragment extends BaseFragment {
         if (index!=-1){
             main_spinner.setSelection(index);
         }else {
-            SharedPreferencesUtil.setParam(_context,"nianji","一年级");
+            SharedPreferencesUtil.setParam(_context,"nianji","低年级");
         }
     }
 
